@@ -17,3 +17,7 @@ function divison(num1, num2) {
 function modulus(num1, num2) {
   return num1 % num2;
 }
+
+function square(num) {
+  return num * num;
+}

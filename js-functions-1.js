@@ -20,5 +20,5 @@ function modulus(num1, num2) {
 
 
 function cube(num1) {
-  return Math.pow(num1, 3);
+  return num1 * num2 * num3;
 }

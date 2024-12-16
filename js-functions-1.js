@@ -18,6 +18,7 @@ function modulus(num1, num2) {
   return num1 % num2;
 }
 
-function square(num) {
-  return num * num;
+
+function cube(num1) {
+  return Math.pow(num1, 3);
 }

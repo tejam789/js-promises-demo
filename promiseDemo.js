@@ -8,7 +8,7 @@ const asyncNumGenerator = () => new Promise((resolve, reject) => {
   
   const generatedNumber = randomNumber(3);
   console.log(`randomly generated number is ${generatedNumber}`);
-  
+
   let successTimer, failureTimer;
   successTimer = setTimeout(() => {
     resolve(generatedNumber);  
@@ -31,13 +31,3 @@ const asyncAdd1000 = (number) => new Promise((resolve, reject) => {
 asyncNumGenerator().then(asyncAdd1000).then((result) => {
   console.log(result);
 });
-
-// console.log(gauranteedAction);
-
-// gauranteedAction.then((val) => {
-//   const result = 100 + val;
-//   console.log(result, "post async action");
-//   return result;
-// }).catch((err) => {
-//   console.log(err, "chained error");
-// })

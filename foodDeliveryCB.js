@@ -2,12 +2,6 @@ const generateId = () => Math.floor(Math.random()*(10**10));
 
 const currentTime = () => new Date().toTimeString().split(" ")[0];
 
-const asyncFunc = (action, time) => {
-  setTimeout(() => {
-    action();
-  }, time);
-}
-
 const moveOrderStatusTo = (order, nextStatus) => {
   logOrderDetails(order);
   order.status = nextStatus;
@@ -37,35 +31,42 @@ const logOrderDetails = (order) => {
 }
 
 const deliverOrder = (order) => {
-  order.deliverDetails = `delivered by John at ${currentTime()}`
-  order.status = "Order Delivered"
-  logOrderDetails(order)
+  setTimeout(() => {
+    order.deliverDetails = `delivered by John at ${currentTime()}`
+    order.status = "Order Delivered"
+    logOrderDetails(order)
+  }, 5000)
 }
 const packOrder = (order, deliverOrderCB) => {
-  order.packageDetails = "Packed in eco friendly bag";
-  order.status = "Order packed"
-  moveOrderStatusTo(order, "Delivering Order")
-  deliverOrderCB(order);
+  setTimeout(() => {
+    order.packageDetails = "Packed in eco friendly bag";
+    order.status = "Order packed"
+    moveOrderStatusTo(order, "Delivering Order")
+    deliverOrderCB(order);
+  }, 2000)
 }
 const prepareFood = (order, packOrderCB) => {
-    order.foodDetails = "Burger & Fries";
-    order.status = "Food is ready"
-    moveOrderStatusTo(order, "Packing order");
-    packOrderCB(order);
+    setTimeout(() => {
+      order.foodDetails = "Burger & Fries";
+      order.status = "Food is ready"
+      moveOrderStatusTo(order, "Packing order");
+      packOrderCB(order);
+    }, 3000)
 }
 
 const createOrder = (prepareFoodCB) => {
-    const id = generateId();
-    const startTime = Date.now();
-    const order = {id, startTime, status: "Order recieved"}
-    moveOrderStatusTo(order, "Preparing food")
-    prepareFoodCB(order);
+    setTimeout(() => {
+      const id = generateId();
+      const startTime = Date.now();
+      const order = {id, startTime, status: "Order recieved"}
+      moveOrderStatusTo(order, "Preparing food")
+      prepareFoodCB(order);
+    }, 0)
 }
 
 const main = () => {
-  const deliveryOrderCB = (order) => asyncFunc(() => deliverOrder(order), 5000)
-  const packOrderCB = (order) => asyncFunc(() => packOrder(order, deliveryOrderCB), 2000);
-  const prepareFoodCB = (order) => asyncFunc(() => prepareFood(order, packOrderCB), 3000);
+  const packOrderCB = (order) => packOrder(order, deliverOrder);
+  const prepareFoodCB = (order) => prepareFood(order, packOrderCB);
   createOrder(prepareFoodCB)
 }
 
